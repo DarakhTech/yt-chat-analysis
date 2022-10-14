@@ -1,6 +1,6 @@
 # YT Live Chat Sentiment Analysis
 
-1. Chat Extraction
+1. [x] Chat Extraction
 2. Sending chunks of chat to server
 3. Cleaning of data (emojis and empty spaces and irrelevant links and spam)
 4. Analysis

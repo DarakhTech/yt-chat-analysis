@@ -3,6 +3,8 @@ import pytchat
 from timeit import default_timer as timer
 from random import randint
 
+from emoji import emoji_scraper
+
 import csv
 
 def update_session_stats(chunk):
@@ -12,6 +14,7 @@ def update_session_stats(chunk):
     total_chats += len(chunk)
 
     for c in chunk:
+        print(emoji_scraper(c.message))
         total_donation += float(c.amountValue)
 
 
@@ -21,7 +24,7 @@ header = ['time','rating']
 with open('./data.csv', 'w') as datafile:
     writer = csv.writer(datafile)
     writer.writerow(header)
-    datafile.close()
+    # datafile.close()
 
     chat = pytchat.create(video_id="vRFrMnCOwlQ")
     # chat = pytchat.create(video_id="eOuqg7_5DZc")
@@ -31,8 +34,6 @@ with open('./data.csv', 'w') as datafile:
     total_donation = 0
     time_elapsed = timer()
     total_chats = 0
-
-
 
     while chat.is_alive():
         for c in chat.get().sync_items():
