@@ -15,3 +15,11 @@
 5. Revenue
 6. **subscribers gained while streaming
 7. Elapsed Time
+
+
+
+# Algorithm
+
+for indicating the streamer to stop.
+- Chat rate flow at the last chunk of data sent and question tags of last data.
+- 
