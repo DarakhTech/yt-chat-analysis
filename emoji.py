@@ -7,7 +7,7 @@ score_dict = {}
 '''running once in main file for making emoji scoring dictionary'''
 def making_emoji_scores(): 
 
-    df = pd.read_csv('data\dataset.csv')
+    df = pd.read_csv('data/dataset.csv')
     for ind in df.index:
         emoji_score = (df['Positive'][ind]-df['Negative'][ind])/(df['Negative'][ind]+df['Neutral'][ind]+df['Positive'][ind])
         score_dict[df['Unicode name'][ind].lower()] = round(emoji_score,3)
@@ -18,7 +18,7 @@ def making_emoji_scores():
 '''returns a tuple of (sentence without emojis , average emoji  score) '''
 def emoji_scraper(sentence):
 
-    sentence = sentence.lower()
+    sentence = sentence.lower().strip()
     matchList = re.findall(r":(.*?):",sentence)
     emoji_avg_score = []
 
@@ -36,9 +36,8 @@ def emoji_scraper(sentence):
     except:
         pass
     try:
-        return (sentence,sum(emoji_avg_score)/(len(emoji_avg_score)))
+        return [sentence,sum(emoji_avg_score)/(len(emoji_avg_score))]
     except:
-        return (sentence,0)
-
+        return [sentence,0]
 making_emoji_scores()
-print(emoji_scraper(input()))
+print("Emoji scores calculated")

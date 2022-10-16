@@ -3,6 +3,8 @@ import pytchat
 from timeit import default_timer as timer
 from random import randint
 
+from data_preprocess import remove_stop_words
+
 from emoji import emoji_scraper
 
 import csv
@@ -10,6 +12,14 @@ import csv
 from fast import FastTextSentiment
 
 ft = FastTextSentiment('./model/sst5.ftz')
+
+rankToScoreMapping = {
+    5 : 1,
+    4 : 0.5,
+    3 : 0,
+    2 : -0.5,
+    1 : -1
+}
 
 def update_session_stats(chunk):
     global total_chats
@@ -19,7 +29,12 @@ def update_session_stats(chunk):
     # print(chunk)
 
     for c in chunk:
-        print(c.message, ft.predict(emoji_scraper(c.message), False))
+
+        # c -> sentence
+        emoji_val = emoji_scraper(c.message)
+        emoji_val[0] = remove_stop_words(emoji_val[0])
+        print(emoji_val[0])
+        print(c.message, rankToScoreMapping[ft.predict(emoji_val[0], False)], emoji_val[1] )
         total_donation += float(c.amountValue)
 
 
@@ -38,9 +53,9 @@ with open('./data.csv', 'w') as datafile:
     writer.writerow(header)
     # datafile.close()
 
-    # chat = pytchat.create(video_id="vRFrMnCOwlQ")
-    chat = pytchat.create(video_id="rEGDNd-9PAU")
-    # chat = pytchat.create(video_id="eOuqg7_5DZc")
+    # chat = pytchat.create(video_id="vRFrMnCOwlQ") # binks
+    # chat = pytchat.create(video_id="rEGDNd-9PAU") # errichto
+    chat = pytchat.create(video_id="wzN4eqja8u8")
     chunks = []
     chunk_start = timer() 
 
