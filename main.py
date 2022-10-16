@@ -28,23 +28,28 @@ def update_session_stats(chunk):
     total_chats += len(chunk)
     # print(chunk)
 
+    summ = 0
+
     for c in chunk:
 
         # c -> sentence
         emoji_val = emoji_scraper(c.message)
         emoji_val[0] = remove_stop_words(emoji_val[0])
         print(emoji_val[0])
-        print(c.message, rankToScoreMapping[ft.predict(emoji_val[0], False)], emoji_val[1] )
+        summ += rankToScoreMapping[ft.predict(emoji_val[0], False)] + emoji_val[1]*0.3
+        print(c.message, emoji_val[1] )
         total_donation += float(c.amountValue)
 
+    print(summ/len(chunk))
+    writeToFile(summ/len(chunk))
 
 header = ['time','rating']
 # datafile = open('./data.csv', 'w')
 
-def writeToFile():
+def writeToFile(n):
     datafile = open('./data.csv', 'a')
     writer = csv.writer(datafile)
-    writer.writerow([timer() - time_elapsed , randint(-1,1)])
+    writer.writerow([timer() - time_elapsed , n])
     datafile.close()
 
 
@@ -55,7 +60,7 @@ with open('./data.csv', 'w') as datafile:
 
     # chat = pytchat.create(video_id="vRFrMnCOwlQ") # binks
     # chat = pytchat.create(video_id="rEGDNd-9PAU") # errichto
-    chat = pytchat.create(video_id="wzN4eqja8u8")
+    chat = pytchat.create(video_id="wzN4eqja8u8") # DanTDM
     chunks = []
     chunk_start = timer() 
 
@@ -70,7 +75,7 @@ with open('./data.csv', 'w') as datafile:
             if cur_time - chunk_start > 10:
                 # print(chunks)
                 update_session_stats(chunks)
-                writeToFile()
+                # writeToFile()
                 chunk_start = timer()
                 chunks = []
                 chunks.append(c)
