@@ -8,9 +8,9 @@ from data_preprocess import remove_stop_words
 from emoji import emoji_scraper
 
 import csv
-# from fast import FastTextSentiment
+from fast import FastTextSentiment
 
-# ft = FastTextSentiment('./model/sst5.ftz')
+ft = FastTextSentiment('./model/sst5.ftz')
 
 from live_plots import LivePlot
 
@@ -41,8 +41,8 @@ def update_session_stats(chunk):
         emoji_val = emoji_scraper(c.message)
         emoji_val[0] = remove_stop_words(emoji_val[0])
         print(emoji_val[0])
-        # summ += rankToScoreMapping[ft.predict(emoji_val[0], False)] + emoji_val[1]*0.3
-        summ += random.random() + emoji_val[1]*0.3
+        summ += rankToScoreMapping[ft.predict(emoji_val[0], False)] + emoji_val[1]*0.3
+        # summ += random.random() + emoji_val[1]*0.3
         print(c.message, emoji_val[1] )
         total_donation += float(c.amountValue)
 
