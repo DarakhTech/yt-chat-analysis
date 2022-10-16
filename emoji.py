@@ -11,4 +11,5 @@ def emoji_scraper(sentence):
                 pass
     except:
         pass
+
     return sentence

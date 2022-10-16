@@ -12,6 +12,7 @@ def update_session_stats(chunk):
     global total_donation
 
     total_chats += len(chunk)
+    # print(chunk)
 
     for c in chunk:
         print(emoji_scraper(c.message))
@@ -20,6 +21,13 @@ def update_session_stats(chunk):
 
 header = ['time','rating']
 # datafile = open('./data.csv', 'w')
+
+def writeToFile():
+    datafile = open('./data.csv', 'a')
+    writer = csv.writer(datafile)
+    writer.writerow([timer() - time_elapsed , randint(-1,1)])
+    datafile.close()
+
 
 with open('./data.csv', 'w') as datafile:
     writer = csv.writer(datafile)
@@ -42,7 +50,7 @@ with open('./data.csv', 'w') as datafile:
             if cur_time - chunk_start > 10:
                 # print(chunks)
                 update_session_stats(chunks)
-                writer.writerow([timer() - time_elapsed , randint(-1,1)])
+                writeToFile()
                 chunk_start = timer()
                 chunks = []
                 chunks.append(c)
