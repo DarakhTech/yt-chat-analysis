@@ -1,17 +1,22 @@
 from asyncore import write
 import pytchat
 from timeit import default_timer as timer
-from random import randint
+import random 
 
 from data_preprocess import remove_stop_words
 
 from emoji import emoji_scraper
 
 import csv
+# from fast import FastTextSentiment
 
-from fast import FastTextSentiment
+# ft = FastTextSentiment('./model/sst5.ftz')
 
-ft = FastTextSentiment('./model/sst5.ftz')
+from live_plots import LivePlot
+
+#instance for live plot
+disp = LivePlot(5,10,1,2,'YT live',["sentiment","timepass"],)
+
 
 rankToScoreMapping = {
     5 : 1,
@@ -36,11 +41,15 @@ def update_session_stats(chunk):
         emoji_val = emoji_scraper(c.message)
         emoji_val[0] = remove_stop_words(emoji_val[0])
         print(emoji_val[0])
-        summ += rankToScoreMapping[ft.predict(emoji_val[0], False)] + emoji_val[1]*0.3
+        # summ += rankToScoreMapping[ft.predict(emoji_val[0], False)] + emoji_val[1]*0.3
+        summ += random.random() + emoji_val[1]*0.3
         print(c.message, emoji_val[1] )
         total_donation += float(c.amountValue)
 
     print(summ/len(chunk))
+
+    disp.updateSubplot(summ/len(chunk),0)
+
     writeToFile(summ/len(chunk))
 
 header = ['time','rating']
@@ -73,6 +82,7 @@ with open('./data.csv', 'w') as datafile:
             # print(c.amountValue)
             cur_time = timer()
             if cur_time - chunk_start > 10:
+                disp.updateSubplot(total_chats,1)
                 # print(chunks)
                 update_session_stats(chunks)
                 # writeToFile()
