@@ -7,6 +7,10 @@ from emoji import emoji_scraper
 
 import csv
 
+from fast import FastTextSentiment
+
+ft = FastTextSentiment('./model/sst5.ftz')
+
 def update_session_stats(chunk):
     global total_chats
     global total_donation
@@ -15,7 +19,7 @@ def update_session_stats(chunk):
     # print(chunk)
 
     for c in chunk:
-        print(emoji_scraper(c.message))
+        print(c.message, ft.predict(emoji_scraper(c.message), False))
         total_donation += float(c.amountValue)
 
 
@@ -34,7 +38,8 @@ with open('./data.csv', 'w') as datafile:
     writer.writerow(header)
     # datafile.close()
 
-    chat = pytchat.create(video_id="vRFrMnCOwlQ")
+    # chat = pytchat.create(video_id="vRFrMnCOwlQ")
+    chat = pytchat.create(video_id="rEGDNd-9PAU")
     # chat = pytchat.create(video_id="eOuqg7_5DZc")
     chunks = []
     chunk_start = timer() 

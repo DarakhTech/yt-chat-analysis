@@ -22,4 +22,16 @@
 
 for indicating the streamer to stop.
 - Chat rate flow at the last chunk of data sent and question tags of last data.
-- 
+
+=> Sentiment Analysis of YT chats : 
+    - Sentiment Analyis
+    - Sentiment -> binary classification 
+                   * Stanford Sentiment Tree Bank
+                   * fine grained (50%)
+                          1. Rule based
+                          2. Feature based
+                          3. Embedded
+                    Try all of them and see which one is best. (47%)
+                        -> Optimise the best approach through small things:\
+                                1. emoji consderation
+                                2. ... ...
