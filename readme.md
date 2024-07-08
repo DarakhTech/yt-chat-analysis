@@ -35,3 +35,16 @@ for indicating the streamer to stop.
                         -> Optimise the best approach through small things:\
                                 1. emoji consderation
                                 2. ... ...
+
+# Images
+## Emoji Sentiment Map
+<img width="500" alt="Screenshot 2024-07-09 at 3 43 03 AM" src="https://github.com/DarakhTech/yt-chat-analysis/assets/54445464/245163ec-7e5d-4d56-a085-7a111c256502">
+
+## Reconfigured emoji Dataset into CSV format
+
+<img width="378" alt="image" src="https://github.com/DarakhTech/yt-chat-analysis/assets/54445464/11b00bc3-cad5-4759-93d5-04a959b478cb">
+
+## Labels for Categorizing
+<img width="670" alt="Screenshot 2024-07-09 at 3 49 58 AM" src="https://github.com/DarakhTech/yt-chat-analysis/assets/54445464/70240d3e-3d07-4762-ab46-0bef5d063ab3">
+
+                                
